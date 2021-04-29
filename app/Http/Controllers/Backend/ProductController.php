@@ -169,7 +169,7 @@ class ProductController extends BackendController
             'size' => '',
 
         ]);
-//        try {
+        try {
         $unit = $request->unit;
         $product = Product::find(base64_decode($request->id));
         $slug = Str::slug($request->title);
@@ -242,11 +242,11 @@ class ProductController extends BackendController
         ]);
 
         return redirect(route('products.list'))->with('status', 'Product Updated Successfully !!');
-//        } catch (QueryException $q) {
-//            return $q->getMessage();
-//        } catch (\Exception $e) {
-//            return $e->getMessage();
-//        }
+        } catch (QueryException $q) {
+            return $q->getMessage();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function destroy($id)
