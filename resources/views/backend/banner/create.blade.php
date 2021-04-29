@@ -36,57 +36,7 @@
                                     @csrf
                                     @endif
                                     <div class="row">
-
-                                        <div class="col-md-4">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroup-sizing-default"><i
-                                                    class="fa fa-text-width fa-lg"></i> &nbsp;Banner Position</span>
-                                                </div>
-
-                                                @if(isset($banner->position))
-                                                    <select name="position" id="banner_position" class="form-control">
-                                                        @if($banner->position == "top")
-                                                            <option value="top">Top</option>
-                                                            <option value="middle">Middle</option>
-                                                        @elseif($banner->position == "middle")
-                                                            <option value="middle">Middle</option>
-                                                            <option value="top">Top</option>
-                                                        @endif
-                                                    </select>
-                                                @else
-                                                    <select name="position" id="banner_position" class="form-control">
-                                                        <option value="#" disabled selected>Select Position</option>
-                                                        <option value="top">Top</option>
-                                                        <option value="middle">Middle</option>
-                                                    </select>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-
-                                                        @if(isset($banner->status))
-                                                            <input type="checkbox" name="status"
-                                                                   value="{{ $banner->status }}"
-                                                                   aria-label="Checkbox for following text input"
-                                                                   @if($banner->status == 1) checked @else @endif>
-                                                        @else
-                                                            <input type="checkbox" name="status" value="1"
-                                                                   aria-label="Checkbox for following text input"
-                                                                   checked>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                <input type="button" class="form-control bg-indigo text-muted"
-                                                       value="Display" disabled>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
 
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -94,7 +44,7 @@
                                                     class="fa fa-image fa-lg"></i> &nbsp;Image</span>
                                                 </div>
                                                 @if(isset($banner->image))
-                                                    <img src="{{ asset('storage/banners/images/'.$banner->type.'_small_'.$banner->image)}}"
+                                                    <img src="{{ asset('storage/banners/images/'.$banner->image)}}"
                                                          data-toggle="tooltip"
                                                          data-placement="top" title="Current Image" alt="Avatar"
                                                          class="w35 rounded">
@@ -108,6 +58,27 @@
 
                                             </div>
 
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+
+                                                        @if(isset($banner->status))
+                                                            <input type="checkbox" name="status"
+                                                                   value="1"
+                                                                   aria-label="Checkbox for following text input"
+                                                                   @if($banner->status == 1) checked @else @endif>
+                                                        @else
+                                                            <input type="checkbox" name="status" value="1"
+                                                                   aria-label="Checkbox for following text input"
+                                                                   checked>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <input type="button" class="form-control bg-indigo text-muted"
+                                                       value="Display" disabled>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="input-group mb-3">

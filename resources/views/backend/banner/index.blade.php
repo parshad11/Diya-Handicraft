@@ -29,7 +29,6 @@
                                     <th>#</th>
                                     <th>Image</th>
                                     <th>Display</th>
-                                    <th>Position</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -52,11 +51,6 @@
                                             @else
                                                 <span class="btn btn-primary btn-warning">Not Displayed</span>
                                             @endif
-                                        </td>
-                                        <td>
-                                          
-                                                {{ucfirst($banner->position)}}
-                                       
                                         </td>
                                         <td>
                                             <a href="{{url('@dashboard@/banner/edit/'.base64_encode($banner->id))}}">

@@ -17,7 +17,6 @@ class CreateBannersTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('image');
             $table->boolean('status')->default(0);
-            $table->text('position');
             $table->string('url')->nullable();
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

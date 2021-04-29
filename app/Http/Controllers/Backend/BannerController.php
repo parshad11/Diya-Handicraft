@@ -25,10 +25,8 @@ class BannerController extends BackendController
 
     public function store(Request $request)
     {
-//        dd($request->all());
         $this->validate($request, [
             'image' => 'image|mimes:jpeg,png,jpg|max:50000',
-            'position'=>'required'
         ]);
 
         $banner = new Banner();
@@ -51,9 +49,6 @@ class BannerController extends BackendController
             if ($request->status) {
                 $banner->status = $request->status;
             }
-
-            $banner->position = $request->position;
-
             $banner->save();
             return redirect(url('@dashboard@/banner'))->with('status', 'Banner Added Successfully !!');
         } 
@@ -72,12 +67,9 @@ class BannerController extends BackendController
 
     public function update($id,Request $request)
     {
-       
-        $this->validate($request, [
-            'page' => 'required',
-            'type' => 'required',
-            'url' => 'required|url',
-        ]);
+//        $this->validate($request, [
+//            'image' => 'image|max:50000',
+//        ]);
         $banner = Banner::findOrFail($id);
         
         if($request->hasFile('image'))
@@ -86,11 +78,7 @@ class BannerController extends BackendController
                 'image' => 'image|mimes:jpeg,png,jpg|max:50000'
             ]);
             $oldImage = $banner->image;
-            $type = $banner->type;
-            $thumb = 'public/banners/images/' . $type . '_' . $oldImage;
-            $small = 'public/banners/images/' . $type . '_small' . $oldImage;
-            Storage::delete($thumb);
-            Storage::delete($small);
+            Storage::delete($oldImage);
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $folderPath = 'public/banners/images';
@@ -99,30 +87,13 @@ class BannerController extends BackendController
                 Storage::makeDirectory($folderPath, 077, true, true);
             }
             Storage::putFileAs($folderPath, new File($image), $imageName);
-            switch ($request->type) 
-            {
-                case 'vertical':
-                    Banner::resize_crop_images(1349, 250, $image, $folderPath . '/vertical_' . $imageName);
-                    Banner::resize_crop_images(200, 200, $image, $folderPath . '/vertical_small_' . $imageName);
-                    $request->image = $imageName;
-                    break;
-                default:
-                    Banner::resize_crop_images(187, 305, $image, $folderPath . '/horizontal_' . $imageName);
-                    Banner::resize_crop_images(200, 200, $image, $folderPath . '/horizontal_small_' . $imageName);
-                    $request->image = $imageName;
-                break;
 
-            }
 
         }
         $update = Banner::where('id',$id)->update([
-            'type' => $request->type,
             'status' => $request->status,
-            'featured' =>$request->featured,
             'image' => $request->image,
-            'url' => $request->url, 
-            'position'=>$request->position,
-            'page'=>$request->page
+            'url' => $request->url,
 
         ]);
         if($update)
