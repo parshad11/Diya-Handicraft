@@ -104,6 +104,7 @@ class ProductController extends BackendController
                 'feature' => $request->feature,
                 'slug' => $slug,
                 'status' => $request->status,
+                'special' => $request->special,
                 'category_id' => $request->category,
                 'created_by' => Auth::user()->name,
                 'updated_by' => '',
@@ -235,12 +236,12 @@ class ProductController extends BackendController
             'image' => $imageName,
             'feature' => $request->feature,
             'status' => $request->status,
+            'special' => $request->special,
             'category_id' => $request->category,
             'quantity' => $request->quantity,
             'updated_by' => Auth::user()->name,
             'created_by' => $product->created_by,
         ]);
-
         return redirect(route('products.list'))->with('status', 'Product Updated Successfully !!');
         } catch (QueryException $q) {
             return $q->getMessage();

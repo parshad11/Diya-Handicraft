@@ -38,17 +38,17 @@
                                 <tr>
                                     <td class="w60">
 
-                                            <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top"
-                                                 title=""
-                                                 data-original-title="{{ $row->title }}">
+                                        <div class="avtar-pic w35 bg-red" data-toggle="tooltip" data-placement="top"
+                                             title=""
+                                             data-original-title="{{ $row->title }}">
                                         <span><img src="{{asset('storage/products/'.$row->slug.'/'.$row->image)}}"
                                                    class="img-thumbnail"></span>
-                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         @if($row->unit)
                                             <div class="font-16">{{ $row->title.' '.'('.$row->unit.')'}}</div>
-                                            @else
+                                        @else
                                             <div class="font-16">{{ $row->title }}</div>
                                         @endif
                                         <span class="text-muted">
@@ -65,11 +65,16 @@
                                         @else
                                             <span class="badge badge-danger text-uppercase">Not Featured</span>
                                         @endif
+                                        @if($row->special == 1)
+                                            <span class="badge badge-success text-uppercase"> specail</span>
+                                        @else
+                                            <span class="badge badge-danger text-uppercase">Not specail</span>
+                                        @endif
                                         @if($row->quantity<=10 && $row->quantity>=1)
                                             <span class="badge badge-danger text-uppercase">Low Inventory </span>
                                         @endif
                                         @if($row->quantity<=0)
-                                                <span class="badge badge-danger text-uppercase">out of Inventory</span>
+                                            <span class="badge badge-danger text-uppercase">out of Inventory</span>
                                         @endif
                                     </td>
                                     <td>

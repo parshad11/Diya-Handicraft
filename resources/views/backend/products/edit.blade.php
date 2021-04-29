@@ -645,6 +645,16 @@
                                     <input type="text" class="form-control" value="Featured Status" disabled>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><input type="checkbox" name="special" value="1"
+                                                                             @if($product->special) checked @endif>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" value="Is Special" disabled>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <br>

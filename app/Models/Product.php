@@ -40,6 +40,7 @@ class Product extends Model
         'category_id' => 'integer',
         'feature' => 'boolean',
         'status' => 'boolean',
+        'special'=>'boolean',
         'created_by' => 'string',
         'updated_by' => 'string',
     ];
@@ -67,6 +68,7 @@ class Product extends Model
         'image',
         'excerpt_description',
         'status',
+        'special',
         'featured_image',
         'created_by',
         'updated_by',

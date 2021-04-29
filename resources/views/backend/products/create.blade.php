@@ -337,7 +337,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
-                        Product Display & Featured Status
+                        Product Display , Featured & special Status
                     </div>
                     <div class="body">
                         <div class="row">
@@ -357,6 +357,15 @@
                                                                              checked></div>
                                     </div>
                                     <input type="text" class="form-control" value="Featured Status" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><input type="checkbox" name="special" value="1"
+                                                                             checked></div>
+                                    </div>
+                                    <input type="text" class="form-control" value="Is Special" disabled>
                                 </div>
                             </div>
                         </div>

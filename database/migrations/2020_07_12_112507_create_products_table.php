@@ -35,6 +35,8 @@ class CreateProductsTable extends Migration
             $table->unsignedBiginteger('category_id')->unsigned();
             $table->boolean('feature')->default(0);
             $table->boolean('status')->default(0);
+            $table->boolean('special')->default(0);
+            $table->integer('views')->default(0);
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
