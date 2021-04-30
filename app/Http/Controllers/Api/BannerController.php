@@ -16,7 +16,8 @@ class BannerController extends Controller
         $banner = Banner::where('status', 1)
             ->select(
                 'banners.id',
-                DB::raw("CONCAT('$path',banners.image) as banner_image")
+                DB::raw("CONCAT('$path/',banners.image) as banner_image"),
+                'banners.url'
             )
             ->get();
         return response()->json([
