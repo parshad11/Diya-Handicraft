@@ -65,54 +65,54 @@
                                     </li>
                                 </ul>
                             </div>
-                            {{--<div class="col-md-6 col-ms-12 users-link ">--}}
-                                {{--<ul class=" user-link ">--}}
-                                    {{--@if(!Auth::check())--}}
-                                        {{--<li class="myaccountnav">--}}
-                                            {{--<div class="account-img">--}}
-                                                {{--<i class="fas fa-user"></i>--}}
-                                            {{--</div>--}}
+                            <div class="col-md-6 col-ms-12 users-link ">
+                                <ul class=" user-link ">
+                                    @if(!Auth::check())
+                                        <li class="myaccountnav">
+                                            <div class="account-img">
+                                                <i class="fas fa-user"></i>
+                                            </div>
 
-                                            {{--<a href="{{url('/register')}}" id="LoginBtn" class="">--}}
-                                                {{--<i class=""></i>LOGIN/--}}
-                                                {{--REGISTER</a>--}}
+                                            <a href="{{url('/register')}}" id="LoginBtn" class="">
+                                                <i class=""></i>LOGIN/
+                                                REGISTER</a>
 
-                                        {{--</li>--}}
-                                    {{--@else--}}
-                                        {{--<li class="myaccountnav">--}}
-                                            {{--<div class="account-img">--}}
-                                                {{--<i class="fas fa-user"></i>--}}
-                                            {{--</div>--}}
-                                            {{--<i class=""></i>WELCOME,--}}
-                                            {{--{{ Str::upper(auth()->user()->name) }}--}}
+                                        </li>
+                                    @else
+                                        <li class="myaccountnav">
+                                            <div class="account-img">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <i class=""></i>WELCOME,
+                                            {{ Str::upper(auth()->user()->name) }}
 
-                                        {{--</li>--}}
-                                        {{--<li class="myaccountnav">--}}
-                                            {{--<div class="account-img">--}}
-                                                {{--<i class="fas fa-sign-out-alt"></i>--}}
-                                            {{--</div>--}}
+                                        </li>
+                                        <li class="myaccountnav">
+                                            <div class="account-img">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                            </div>
 
-                                            {{--<a href="{{url('/user/logout')}}" id="LoginBtn" class="">--}}
-                                                {{--<i class=""></i>LOGOUT</a>--}}
+                                            <a href="{{url('/user/logout')}}" id="LoginBtn" class="">
+                                                <i class=""></i>LOGOUT</a>
 
-                                        {{--</li>--}}
-                                    {{--@endif--}}
-                                    {{--<li class="myaccountnav">--}}
-                                        {{--<div class="account-img">--}}
-                                            {{--<i class="fas fa-heart"></i>--}}
-                                        {{--</div>--}}
-                                        {{--<a href="#">WISHLIST</a>--}}
-                                    {{--</li>--}}
-                                    {{--<li class="myaccountnav">--}}
-                                        {{--<div class="account-img">--}}
-                                            {{--<i class="fab fa-first-order-alt"></i>--}}
-                                        {{--</div>--}}
+                                        </li>
+                                    @endif
+                                    <li class="myaccountnav">
+                                        <div class="account-img">
+                                            <i class="fas fa-heart"></i>
+                                        </div>
+                                        <a href="#">WISHLIST</a>
+                                    </li>
+                                    <li class="myaccountnav">
+                                        <div class="account-img">
+                                            <i class="fab fa-first-order-alt"></i>
+                                        </div>
 
-                                        {{--<a href="{{route('order.tracking')}}">TRACK ORDER</a>--}}
+                                        <a href="{{route('order.tracking')}}">TRACK ORDER</a>
 
-                                    {{--</li>--}}
-                                {{--</ul>--}}
-                            {{--</div>--}}
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div class="row ">
