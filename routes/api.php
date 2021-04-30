@@ -23,4 +23,7 @@ Route::namespace('Api')->group(function () {
     Route::post('/login', 'AuthController@login');
     Route::post('/register', 'AuthController@register');
     Route::get('/site-setting', 'SiteController@index');
+    Route::get('/banners', 'BannerController@banner');
 });
+
+
