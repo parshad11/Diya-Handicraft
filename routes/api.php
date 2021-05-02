@@ -24,11 +24,11 @@ Route::namespace('Api')->group(function () {
     Route::post('/register', 'AuthController@register');
     Route::get('/site-setting', 'SiteController@index');
     Route::get('/banners', 'BannerController@banner');
-    Route::get('/featured_product','FeaturedProductController@featuredproduct');
-    Route::get('/special_product','SpecialProductController@specialproduct');
-    Route::get('/latest_product','LatestProductController@latestproduct');
-    Route::get('/most_viewed_product','MostViewedProductController@mostviewproduct');
-    Route::get('/best_selled_product','BestSelledProductController@bestselledproduct');
+    Route::get('/featured_product','ProductController@featuredproduct');
+    Route::get('/special_product','ProductController@specialproduct');
+    Route::get('/latest_product','ProductController@latestproduct');
+    Route::get('/most_viewed_product','ProductController@mostviewproduct');
+    Route::get('/best_selled_product','ProductController@bestselledproduct');
 });
 
 
