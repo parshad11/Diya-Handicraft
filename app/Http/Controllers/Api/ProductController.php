@@ -155,4 +155,30 @@ class ProductController extends Controller
             ]
         ]);
     }
+
+    public function ProductDetail($slug){
+        $path = asset('/storage/products/');
+        $product=Product::where('slug',$slug)->where('status',1)->select(
+            'products.id',
+            'products.title',
+            'products.price',
+            'products.discount_price',
+            'products.shipping_method',
+            'products.shipping_charge',
+            'products.tax',
+            'products.brand',
+            'products.quantity',
+            'products.color',
+            'products.size',
+            'products.rate',
+            'products.description',
+            'products.excerpt_description',
+            DB::raw("CONCAT('$path/',products.image) as product_image"),
+            'products.slug'
+        )->first();
+        return response()->json([
+                    'product'=>$product,
+        ]);
+
+    }
 }

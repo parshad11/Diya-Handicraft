@@ -29,6 +29,12 @@ Route::namespace('Api')->group(function () {
     Route::get('/latest_product','ProductController@latestproduct');
     Route::get('/most_viewed_product','ProductController@mostviewproduct');
     Route::get('/best_selled_product','ProductController@bestselledproduct');
+    Route::get('/product/{slug}','ProductController@ProductDetail');
+    Route::middleware('auth:api')->group(function(){
+        Route::get('/cart','CartController@index');
+        Route::post('/add-to-cart','CartController@Store');
+        Route::delete('carts/{id}', 'CartController@delete');
+    });
 });
 
 
