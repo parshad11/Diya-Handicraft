@@ -24,6 +24,10 @@ Route::namespace('Api')->group(function () {
     Route::post('/register', 'AuthController@register');
     Route::get('/site-setting', 'SiteController@index');
     Route::get('/banners', 'BannerController@banner');
+    Route::get('/category', 'CategoryController@categories');
+    Route::get('/latest_product', 'CategoryController@latestcategory');
+
+
 });
 
 
