@@ -30,9 +30,9 @@ class ProductController extends Controller
             DB::raw("CONCAT('$path/',products.image) as product_image"),
             'products.slug'
         )->get()),true);
-
         return response()->json([
-            'feature_product' =>$featured_product,
+            // 'feature_product' =>$featured_product,
+            'featured_product_color' =>$featured_product_color,
         ]);
     }
 
