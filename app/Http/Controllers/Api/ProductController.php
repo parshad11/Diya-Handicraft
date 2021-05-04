@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductCollection;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
@@ -11,148 +12,36 @@ class ProductController extends Controller
 {
     public function featuredproduct()
     {
-        $path = asset('/storage/products/');
-        $featured_product = json_decode(strip_tags(Product::where('feature',1)->where('status',1)->select(
-            'products.id',
-            'products.title',
-            'products.price',
-            'products.discount_price',
-            'products.shipping_method',
-            'products.shipping_charge',
-            'products.tax',
-            'products.brand',
-            'products.quantity',
-            'products.color',
-            'products.size',
-            'products.rate',
-            'products.description',
-            'products.excerpt_description',
-            DB::raw("CONCAT('$path/',products.image) as product_image"),
-            'products.slug'
-        )->get()),true);
-        return response()->json([
-            // 'feature_product' =>$featured_product,
-            'featured_product_color' =>$featured_product_color,
-        ]);
+        return new ProductCollection(Product::where('feature', 1)->where('status', 1)->get());
     }
 
     public function specialproduct()
     {
-        $path = asset('/storage/products/');
-        $special_product = json_decode(strip_tags(Product::where('special',1)->where('status',1)->select(
-            'products.id',
-            'products.title',
-            'products.price',
-            'products.discount_price',
-            'products.shipping_method',
-            'products.shipping_charge',
-            'products.tax',
-            'products.brand',
-            'products.quantity',
-            'products.color',
-            'products.size',
-            'products.rate',
-            'products.description',
-            'products.excerpt_description',
-            DB::raw("CONCAT('$path/',products.image) as product_image"),
-            'products.slug'
-        )->get()),true);
-
-        return response()->json([
-            'special_product' => [
-
-                'special_product'=>$special_product,
-            ]
-        ]);
+        return new ProductCollection(Product::where('special', 1)->where('status', 1)->get());
     }
 
     public function latestproduct()
     {
-        $path = asset('/storage/products/');
-        $latestproduct = json_decode(strip_tags(Product::orderBy('created_at','desc')->where('status',1)->take(10)->select(
-            'products.id',
-            'products.title',
-            'products.price',
-            'products.discount_price',
-            'products.shipping_method',
-            'products.shipping_charge',
-            'products.tax',
-            'products.brand',
-            'products.quantity',
-            'products.color',
-            'products.size',
-            'products.rate',
-            'products.description',
-            'products.excerpt_description',
-            DB::raw("CONCAT('$path/',products.image) as product_image"),
-            'products.slug'
-        )->get()),true);
-
-        return response()->json([
-            'latestproduct' => [
-
-                'latestproduct'=>$latestproduct,
-            ]
-        ]);
+        return new ProductCollection(Product::orderBy('created_at', 'desc')->where('status', 1)->take(10)->get());
     }
 
     public function mostviewproduct()
     {
-        $path = asset('/storage/products/');
-        $mostviewproduct = json_decode(strip_tags(Product::orderBy('views','desc')->where('status',1)->take(10)->select(
-            'products.id',
-            'products.title',
-            'products.price',
-            'products.discount_price',
-            'products.shipping_method',
-            'products.shipping_charge',
-            'products.tax',
-            'products.brand',
-            'products.quantity',
-            'products.color',
-            'products.size',
-            'products.rate',
-            'products.description',
-            'products.excerpt_description',
-            DB::raw("CONCAT('$path/',products.image) as product_image"),
-            'products.slug'
-        )->get()),true);
-
-        return response()->json([
-            'mostviewproduct' => [
-
-                'mostviewproduct'=>$mostviewproduct,
-            ]
-        ]);
+        return new ProductCollection(Product::orderBy('views', 'desc')->where('status', 1)->take(10)->get());
     }
 
     public function bestselledproduct()
     {
-        $path = asset('/storage/products/');
-        $bestselledproduct = json_decode(strip_tags(Product::orderBy('rate','desc')->where('status',1)->take(10)->select(
-            'products.id',
-            'products.title',
-            'products.price',
-            'products.discount_price',
-            'products.shipping_method',
-            'products.shipping_charge',
-            'products.tax',
-            'products.brand',
-            'products.quantity',
-            'products.color',
-            'products.size',
-            'products.rate',
-            'products.description',
-            'products.excerpt_description',
-            DB::raw("CONCAT('$path/',products.image) as product_image"),
-            'products.slug'
-        )->get()),true);
+        return new ProductCollection(Product::orderBy('rate', 'desc')->where('status', 1)->take(10)->get());
+    }
 
-        return response()->json([
-            'bestselledproduct' => [
+    public function ProductDetail($slug)
+    {
+        $product=Product::where('slug', $slug)->where('status', 1)->first();
+        $oldView=$product->views;
+        $product['views']=$oldView+1;
+        $product->update();
+        return new ProductCollection(Product::where('slug', $slug)->where('status', 1)->get());
 
-                'bestselledproduct'=>$bestselledproduct,
-            ]
-        ]);
     }
 }

@@ -12,6 +12,7 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\Models\Media;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -184,7 +185,5 @@ class Product extends Model
     public function product_attribute(){
         return $this->belongsTo('App\Models\Attribute','attribute');
     }
-
-
 
 }
