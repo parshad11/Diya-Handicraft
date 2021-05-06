@@ -96,7 +96,6 @@ class ProductController extends BackendController
                 'description' => $request->description,
                 'image' => $fileName,
                 'order_item' => $maxOrder + 1,
-                'feature_image' => $feature_image,
                 'feature' => $request->feature,
                 'slug' => $slug,
                 'status' => $request->status,
