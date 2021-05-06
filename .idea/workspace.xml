@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5123824b-e4a3-49d1-a287-0425557db531" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Backend/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Backend/ProductController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -412,12 +411,12 @@
       <workItem from="1620117993194" duration="2902000" />
       <workItem from="1620282738952" duration="13090000" />
       <workItem from="1620307916868" duration="839000" />
-      <workItem from="1620319892011" duration="1667000" />
+      <workItem from="1620319892011" duration="2251000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="313925000" />
+    <option name="totallyTimeSpent" value="314509000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />

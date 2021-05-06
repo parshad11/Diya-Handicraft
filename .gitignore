@@ -4,5 +4,5 @@
 /storage/framework/
 /.idea
 /.vagrant
-.env
-
+/.env
+/public
