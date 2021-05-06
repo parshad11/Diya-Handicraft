@@ -15,6 +15,7 @@
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('backend/assets/vendor/animate-css/vivify.min.css') }}">
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('backend/html/assets/css/site.min.css') }}">
@@ -57,11 +58,11 @@
                     <ul class="nav navbar-nav text-muted">
                         <li><a title="Visit Site" data-toggle="tooltip" data-placement="top" class="icon-menu"
                                href="{{ url('@dashboard@') }}" target="_blank"><i
-                                        class="icon-screen-desktop text-blue"></i> </a>
+                                        class="fa fa-desktop text-blue"></i> </a>
                         </li>&nbsp;|&nbsp;
                         <li><a title="Log Out" data-toggle="tooltip" data-placement="top" class="icon-menu"
                                id="nav-logout"><i
-                                        class="icon-power text-red"></i></a></li>
+                                        class="fa fa-power-off text-red"></i></a></li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                               style="display: none;">
                             @csrf
