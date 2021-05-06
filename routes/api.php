@@ -39,6 +39,9 @@ Route::namespace('Api')->group(function () {
         Route::post('/checkout','CheckoutController@store');
         Route::post('/review','ReviewController@store');
         Route::delete('/review/{id}','ReviewController@delete');
+        Route::get('/wish_list','WishlistController@index');
+        Route::post('/add_to_wish_list','WishlistController@Store');
+        Route::delete('wish_lists/{id}', 'WishlistController@delete');
     });
     Route::get('/review','reviewController@index');
     Route::post('/search','SearchController@search');
