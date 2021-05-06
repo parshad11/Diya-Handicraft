@@ -57,16 +57,16 @@ return [
         'root'=>false,
     ],
 
-    [
-        'name' => 'Contact Mail',
-        'route' => 'contacts.list',
-        'icon' => 'fa fa-phone',
-        'root'=>false,
-    ],
-    [
-        'name' => 'Coupons',
-        'route'=>'coupons.list',
-        'icon'=>'fa fa-product-hunt',
-        'root'=>false,
-    ],
+//    [
+//        'name' => 'Contact Mail',
+//        'route' => 'contacts.list',
+//        'icon' => 'fa fa-phone',
+//        'root'=>false,
+//    ],
+//    [
+//        'name' => 'Coupons',
+//        'route'=>'coupons.list',
+//        'icon'=>'fa fa-product-hunt',
+//        'root'=>false,
+//    ],
 ];

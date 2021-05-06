@@ -62,13 +62,8 @@
                                     <select name="category" id="category" class="form-control">
                                         <option value="default" selected>Choose Product Category</option>
                                         @foreach($categories as $key => $category)
-                                            {{--@if($category->parent_id === 0)--}}
-                                                {{--<option value="#" disabled--}}
-                                                        {{--class="text-info font-weight-bold">{{$category->title}}</option>--}}
-                                            {{--@else --}}
                                             <option value="{{$category->id}}"
                                             >{{$category->title}}</option>
-                                            {{--@endif--}}
                                         @endforeach
 
 
@@ -431,26 +426,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            Featured Images
-                        </div>
-                        <div class="body">
-                            <div class="row">
-                                <div class="col">
-                                    <input type="file" name="featured_image" class="dropify" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="alert alert-warning">
-                                <i class="fa fa-warning"></i> Image Size Must Be 270 X 284 PX
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <a href="#" id="option" class="btn-btn info badge-info">Add Option</a>
             </div>
 
         </div>

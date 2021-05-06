@@ -17,8 +17,8 @@ class CreateWishlistsTable extends Migration
             $table->id();
             $table->integer('product_id');
             $table->integer('user_id');
-            $table->integer('quantity');
-            $table->integer('total_price');
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
             $table->timestamps();
         });
     }

@@ -52,7 +52,7 @@
                                             <div class="font-16">{{ $row->title }}</div>
                                         @endif
                                         <span class="text-muted">
-                                                <small> <i>{{$row->category->title }} </i></small></span>
+                                                <small> <i>Category: {{$row->category->title }} </i></small></span>
                                     </td>
                                     <td>
                                         @if($row->status == 1)

@@ -37,7 +37,6 @@
                                 <tr class="text-center">
                                     <th>#</th>
                                     <th>Product Title</th>
-                                    <th>Units</th>
                                     <th>Quantity</th>
                                 </tr>
                                 </thead>
@@ -49,7 +48,6 @@
                                             {{$loop->index+1}}
                                         </td>
                                         <td>{{$product->title}}</td>
-                                        <td>{{$product->unit}}</td>
                                         <td>{{$product->quantity}}</td>
                                     </tr>
                                 @endforeach

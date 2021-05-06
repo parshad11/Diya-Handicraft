@@ -58,14 +58,7 @@ class ProductController extends BackendController
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $folderPath = 'products/' . $slug . '/';
                 $thumbPath = 'products/' . $slug . '/thumbs/';
-                /* if (!file_exists($thumbPath)) {
-                     Storage::makeDirectory($thumbPath, 077, true, true);
-                 }*/
                 Storage::putFileAs($folderPath, new File($image), $imageName);
-
-                /*  Product::resize_crop_images(218, 250, $image, $thumbPath . 'thumb_' . $imageName);
-                  Product::resize_crop_images(433, 474, $image, $thumbPath . 'big_' . $imageName);
-                  Product::resize_crop_images(200, 200, $image, $thumbPath . 'small_' . $imageName);*/
                 $fileName = $imageName;
             }
 
@@ -78,16 +71,19 @@ class ProductController extends BackendController
                 $featuredImage = time() . '.' . $image->getClientOriginalExtension();
                 $folderPath = 'products/' . '/';
                 $thumbPath = 'products/' . '/thumbs/';
-                /*     if (!file_exists($thumbPath)) {
-                         Storage::makeDirectory($thumbPath, 077, true, true);
-                     }*/
                 Storage::putFileAs($folderPath, new File($image), $featuredImage);
-                /*     Product::resize_crop_images(218, 250, $image, $thumbPath . 'thumb_featured' . $featuredImage);
-                     Product::resize_crop_images(433, 474, $image, $thumbPath . 'big_featured' . $featuredImage);
-                     Product::resize_crop_images(200, 200, $image, $thumbPath . 'small_featured' . $featuredImage);*/
                 $feature_image = $featuredImage;
             }
-            $size = implode(',', $request->size);
+            if ($request->size) {
+                $size = implode(',', $request->size);
+            } else {
+                $size = null;
+            }
+            if ($request->color) {
+                $color = implode(',', $request->color);
+            } else {
+                $color = null;
+            }
             $product = Product::create([
                 'title' => $request->title,
                 'price' => $request->price,
@@ -96,7 +92,7 @@ class ProductController extends BackendController
                 'shipping_charge' => $request->shipping_charge != '' ? $request->shipping_charge : Null,
                 'tax' => $request->tax != '' ? $request->tax : Null,
                 'quantity' => $request->quantity,
-                'color' => implode(',', $request->color),
+                'color' => $color,
                 'description' => $request->description,
                 'image' => $fileName,
                 'order_item' => $maxOrder + 1,
@@ -110,7 +106,7 @@ class ProductController extends BackendController
                 'updated_by' => '',
                 'excerpt_description' => $request->excerpt_description
             ]);
-            $product->size = implode(',', $request->size);
+            $product->size = $size;
             $product->save();
             return redirect(url('@dashboard@/product'))->with('status', 'Product Added Succesfully !!');
         } catch (\Exception $e) {
@@ -171,78 +167,85 @@ class ProductController extends BackendController
 
         ]);
         try {
-        $unit = $request->unit;
-        $product = Product::find(base64_decode($request->id));
-        $slug = Str::slug($request->title);
-        $path = public_path() . '/storage/products/' . $product->slug;
+            $unit = $request->unit;
+            $product = Product::find(base64_decode($request->id));
+            $slug = Str::slug($request->title);
+            $path = public_path() . '/storage/products/' . $product->slug;
 
 
-        if ($product->slug != $slug) {
-            if (file_exists($path)) {
-                Storage::move('public/products/' . $product->slug, 'public/products/' . $slug);
+            if ($product->slug != $slug) {
+                if (file_exists($path)) {
+                    Storage::move('public/products/' . $product->slug, 'public/products/' . $slug);
+
+                }
+                $product->slug = Product::createSlug($slug, $request['id']);
+                $slug = $product->slug;
 
             }
-            $product->slug = Product::createSlug($slug, $request['id']);
-            $slug = $product->slug;
 
-        }
+            $imageName = $product->image;
 
-        $imageName = $product->image;
+            if ($request->hasFile('image')) {
+                $this->validate($request, [
+                    'image' => 'image|mimes:jpeg,Jpg,png,JFIF|max:50000'
+                ]);
 
-        if ($request->hasFile('image')) {
-            $this->validate($request, [
-                'image' => 'image|mimes:jpeg,Jpg,png,JFIF|max:50000'
-            ]);
-
-            $folderPath = 'products/' . $slug;
+                $folderPath = 'products/' . $slug;
 //            dd($folderPath);
 
-            if (!file_exists($path)) {
+                if (!file_exists($path)) {
 
-                Storage::makeDirectory($folderPath, 0777, true, true);
-                if (!is_dir($path . "/thumbs")) {
-                    Storage::makeDirectory($folderPath . '/thumbs', 0777, true, true);
+                    Storage::makeDirectory($folderPath, 0777, true, true);
+                    if (!is_dir($path . "/thumbs")) {
+                        Storage::makeDirectory($folderPath . '/thumbs', 0777, true, true);
+                    }
+
                 }
 
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                Storage::putFileAs($folderPath, new File($image), $imageName);
+                /* Product::resize_crop_images(218, 250, $image, $folderPath . '/thumbs/thumb_' . $imageName);
+                 Product::resize_crop_images(433, 474, $image, $folderPath . '/thumbs/big_' . $imageName);
+                 Product::resize_crop_images(200, 200, $image, $folderPath . '/thumbs/small_' . $imageName);*/
+
+                $oldImage = $product->image;
+                Storage::delete($folderPath . '/' . $oldImage);
             }
-
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            Storage::putFileAs($folderPath, new File($image), $imageName);
-            /* Product::resize_crop_images(218, 250, $image, $folderPath . '/thumbs/thumb_' . $imageName);
-             Product::resize_crop_images(433, 474, $image, $folderPath . '/thumbs/big_' . $imageName);
-             Product::resize_crop_images(200, 200, $image, $folderPath . '/thumbs/small_' . $imageName);*/
-
-            $oldImage = $product->image;
-            Storage::delete($folderPath . '/' . $oldImage);
-        }
-
-
-
-        $product->update([
-            'title' => $request->title,
-            'price' => $request->price,
-            'discount_price' => $request
-                ->discount_price,
-            'shipping_method' => $request->shipping_method,
-            'shipping_charge' => $request->shipping_charge != '' ? $request->shipping_charge : Null,
-            'tax' => $request->tax != '' ? $request->tax : Null,
-            'color' => implode(',', $request->color),
-            'size' => @implode(',', $request->size),
-            'description' => $request->description,
-            'excerpt_description' => $request->excerpt_description,
-            'option' => $request->option,
-            'slug' => $slug,
-            'image' => $imageName,
-            'feature' => $request->feature,
-            'status' => $request->status,
-            'special' => $request->special,
-            'category_id' => $request->category,
-            'quantity' => $request->quantity,
-            'updated_by' => Auth::user()->name,
-            'created_by' => $product->created_by,
-        ]);
-        return redirect(route('products.list'))->with('status', 'Product Updated Successfully !!');
+            if ($request->size) {
+                $size = implode(',', $request->size);
+            } else {
+                $size = null;
+            }
+            if ($request->color) {
+                $color = implode(',', $request->color);
+            } else {
+                $color = null;
+            }
+            $product->update([
+                'title' => $request->title,
+                'price' => $request->price,
+                'discount_price' => $request
+                    ->discount_price,
+                'shipping_method' => $request->shipping_method,
+                'shipping_charge' => $request->shipping_charge != '' ? $request->shipping_charge : Null,
+                'tax' => $request->tax != '' ? $request->tax : Null,
+                'color' => $color,
+                'size' => $size,
+                'description' => $request->description,
+                'excerpt_description' => $request->excerpt_description,
+                'option' => $request->option,
+                'slug' => $slug,
+                'image' => $imageName,
+                'feature' => $request->feature,
+                'status' => $request->status,
+                'special' => $request->special,
+                'category_id' => $request->category,
+                'quantity' => $request->quantity,
+                'updated_by' => Auth::user()->name,
+                'created_by' => $product->created_by,
+            ]);
+            return redirect(route('products.list'))->with('status', 'Product Updated Successfully !!');
         } catch (QueryException $q) {
             return $q->getMessage();
         } catch (\Exception $e) {

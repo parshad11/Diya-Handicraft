@@ -82,14 +82,6 @@
                     </i>
                 </small>
                 <span class="content-right">
-                    <a href="#viewModal"
-                       class="btn btn-sm btn-outline-success"
-                       data-toggle="modal"
-                       data-id="{{ $item->id }} "
-                       id="view{{ $item->id }}"
-                       onclick="view('{{ $item->id }}','{{ $item->title }}','{{ $item->slug }}','{{ $item->status }}','{{ $item->feature }}')"
-                       title="View"><i class="fa fa-eye"></i>
-                    </a>
                     <a href="{{ url('@dashboard@/category/'.base64_encode($item->id).'/edit')}}"
                        class="btn btn-sm btn-outline-primary" title="Edit"><i class="fa fa-edit"></i></a>
                         <a href="#delete"
