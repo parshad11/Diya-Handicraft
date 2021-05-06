@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CartCollection;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -12,13 +13,15 @@ class CartController extends Controller
 {
     public function index()
     {
-        $cart_items = Cart::with('products')->where('user_id', auth()->user()->id)->get();
-        return response()->json([ $cart_items]);
+        return new CartCollection(Cart::with('products')->where('user_id', auth()->user()->id)->get());
     }
 
     public function store(Request $request){
         $user_id = auth()->user()->id;
-        $cart_items=Cart::where('user_id',$user_id)->get();
+        $color=$request->color;
+        $size=$request->size;
+        $cart_items=Cart::where('user_id',$user_id)->where('color',$request->color)
+            ->where('size',$request->size)->get();
         $product=Product::find($request->product_id);
         if(!$product){
             return response()->json(['status' => 'error', 'msg' => 'Product not found']);
@@ -31,6 +34,8 @@ class CartController extends Controller
         $data['user_id'] = $user_id;
         $data['quantity'] = isset($request->quantity) ? $request->quantity : 1;
         $data['total_price'] = $data['quantity'] * $product->discount_price;
+        $data['color']=$request->color;
+        $data['size']=$request->size;
         if ($cart_items) {
             $foundInCart = false;
             $cart = collect();
@@ -40,9 +45,10 @@ class CartController extends Controller
                     if ($cartItem['quantity'] >= $product->quantity) {
                         return response()->json(['status' => 'error', 'msg' => 'Quantity is not available']);
                     }
-                    // $cartItem['id'] += $variation_product->id;
                     $cartItem['quantity'] += ($request->quantity) ? $request->quantity : 1;
                     $cartItem['total_price'] = $cartItem['quantity'] * $product->discount_price;
+                    $data['color']=$request->color;
+                    $data['size']=$request->size;
                 }
                 $cart->push($cartItem);
             }
@@ -60,12 +66,16 @@ class CartController extends Controller
                 [
                     'product_id' => $value['product_id'],
                     'user_id' => $value['user_id'],
+                    'color' => $value['color'],
+                    'size' => $value['size']
                 ],
                 [
                     'product_id' => $value['product_id'],
                     'user_id' => $value['user_id'],
                     'quantity' => $value['quantity'],
-                    'total_price' => $value['total_price']
+                    'total_price' => $value['total_price'],
+                    'color' => $value['color'],
+                    'size' => $value['size'],
                 ]
             );
             array_push($cart_data, $cart_db);

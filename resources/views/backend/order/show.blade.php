@@ -59,7 +59,8 @@
                                 <th scope="col">Product Quantity</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Sub Total</th>
-                                <th scope="col">Other
+                                <th scope="col">color</th>
+                                <th scope="col">size</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -71,92 +72,44 @@
                             //                                                        dd($product);
                             ?>
                             @foreach($product as $key => $item)
-
                                 <tr class="text-center">
                                     <th scope="row">{{ $key + 1 }}</th>
                                     <th>
                                         @php
-                                            $product = \App\Models\Product::findorFail(@$item->cart_id);
+                                            $product = \App\Models\Product::findorFail(@$item->product_id);
                                         @endphp
-                                        {{@$product->product_title}}
+
+
                                         @if($product)
                                             <img width="60px"
                                                  src="{{ asset('storage/products/'.$product->slug.'/'.$product->image) }}">
                                         @endif
                                     </th>
-                                    <td>{{ @$item->product_title}}
+                                    <td>{{@$product->title}}
                                     </td>
                                     <td>{{ @$item->quantity }}</td>
-                                    <td>{{ @$item->sub_total }}</td>
-                                    <td>{{ @$item->quantity * $item->sub_total }}</td>
-                                    <td><a data-toggle="modal" data-target="#exampleModalLong{{$item->id}}"
-                                           class="btn btn-sm btn-success center-block"
-                                           title="View"><i class="fa fa-eye"></i></a></td>
+                                    <td>{{ @$item->total_price }}</td>
+                                    <td>{{ @$item->quantity * $item->total_price }}</td>
+                                    <td>{{ @$item->color }}</td>
+                                    <td>{{ @$item->size }}</td>
                                 </tr>
-                                @php
-                                    $totalprice += $item->quantity * $item->sub_total;
-                                @endphp
-                                <div class="modal fade  bd-example-modal-lg" id="exampleModalLong{{$item->id}}"
-                                     tabindex="-1" role="dialog"
-                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Order Detail</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <?php
-                                                //                                                    dd($item->id);
-                                                $product = json_decode($order->products);
-                                                //                                            dd($attribute);
-                                                //                                                ?>
-                                                {{--<h3>Product Detail</h3>--}}
-                                                @foreach($product as $product)
-                                                    <div class="col-md-12 row">
-                                                        <div class="col-md-3">
-                                                            <h5>Product title</h5>
-                                                            <p>{{@$product->product_title}}</p>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <h5>Quantity</h5>
-                                                            <p>{{@$product->quantity}}</p>
-                                                        </div>
-                                                        @if(@$product->attribute)
-                                                            @foreach($product->attribute as $attribute)
-                                                                <div class="col-md-3">
-                                                                    <h5>{{ \App\Models\Attribute::find($attribute)->name }}</h5>
-                                                                    <p>{{@$product->$attribute}}</p>
-                                                                </div>
-                                                            @endforeach
-                                                        @endif
-                                                    </div>
-                                                    <hr>
-                                                @endforeach
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @php
+                                    $totalprice += $item->quantity * $item->total_price;
+                                @endphp
                             @endforeach
                             <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td class="text-center">Total Price :</td>
-                                <td></td>
                                 <td>{{ $totalprice }}</td>
-                                <td></td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

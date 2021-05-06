@@ -36,7 +36,13 @@ Route::namespace('Api')->group(function () {
         Route::get('/cart','CartController@index');
         Route::post('/add-to-cart','CartController@Store');
         Route::delete('carts/{id}', 'CartController@delete');
+        Route::post('/checkout','CheckoutController@store');
+        Route::post('/review','ReviewController@store');
+        Route::delete('/review/{id}','ReviewController@delete');
     });
+    Route::get('/review','reviewController@index');
+    Route::post('/search','SearchController@search');
+
 
 });
 

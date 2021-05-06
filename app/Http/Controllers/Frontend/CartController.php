@@ -37,7 +37,7 @@ class CartController extends FrontendController
             $cart_item['cart_id'] = $product->id;
             $cart_item['product_title'] = $product->title;
             $cart_item['sub_total'] = (int)$price * (int)$request->quantity;
-            dd($cart_item);
+
 
 
             $cart_total = 0;

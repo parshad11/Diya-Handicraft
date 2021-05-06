@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->integer('order_no')->unique();
             $table->text('products')->nullable();
             $table->integer('total_price');
-            $table->text('billing_details');
+            $table->text('billing_details')->nullable();
             $table->text('shipping_details');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
