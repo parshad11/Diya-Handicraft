@@ -1,0 +1,8 @@
+/node_modules
+/storage/*.key
+/storage/logs/
+/storage/framework/
+/.idea
+/.vagrant
+.env
+
