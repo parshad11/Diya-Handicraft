@@ -36,6 +36,9 @@ Route::namespace('Api')->group(function () {
         Route::get('/cart','CartController@index');
         Route::post('/add-to-cart','CartController@Store');
         Route::delete('carts/{id}', 'CartController@delete');
+        Route::get('/wish_list','WishlistController@index');
+        Route::post('/add_to_wish_list','WishlistController@Store');
+        Route::delete('wish_lists/{id}', 'WishlistController@delete');
     });
 
 });
