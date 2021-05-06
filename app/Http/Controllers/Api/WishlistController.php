@@ -44,11 +44,11 @@ class WishlistController extends Controller
     }
 
     public function delete($id){
-        $cart=Wishlist::find($id);
-        if(!$cart){
+        $wish_list=Wishlist::find($id);
+        if(!$wish_list){
             return response()->json(['status'=>'error','msg'=>'Wishlist Not Found']);
         }
-        $cart->delete();
+        $wish_list->delete();
         return response()->json(['status' => 'success', 'msg' => 'Wishlist Deleted Successfully']);
     }
 }
