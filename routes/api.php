@@ -43,7 +43,7 @@ Route::namespace('Api')->group(function () {
         Route::post('/add_to_wish_list','WishlistController@Store');
         Route::delete('wish_lists/{id}', 'WishlistController@delete');
     });
-    Route::get('/review','reviewController@index');
+    Route::get('/review','ReviewController@index');
     Route::post('/search','SearchController@search');
 
 
